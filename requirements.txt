@@ -1,0 +1,13 @@
+langgraph
+langchain
+langchain-groq
+langchain-community
+python-dotenv
+fastapi
+uvicorn
+pydantic
+# The official Python SDK for Firebase
+firebase-admin
+# The standard library for building Telegram Bots
+python-telegram-bot
+httpx
