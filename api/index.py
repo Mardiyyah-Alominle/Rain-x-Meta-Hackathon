@@ -1,5 +1,6 @@
 import logging
 from fastapi import FastAPI, Request, Response
+from fastapi.middleware.cors import CORSMiddleware
 import httpx
 from langchain_core.messages import HumanMessage
 from dotenv import load_dotenv
@@ -12,6 +13,11 @@ from workflows.shop_flow import app as shop_app
 # Import DB init to ensure mock data/firebase loads on startup
 from utils.db import db
 
+# Import new API routers
+from api.products_api import router as products_router
+from api.sales_api import router as sales_router
+from api.analytics_api import router as analytics_router
+
 # Load environment variables
 load_dotenv()
 
@@ -20,7 +26,29 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Setup FastAPI
-app = FastAPI()
+app = FastAPI(
+    title="AestheticBot API",
+    description="E-commerce chatbot API with admin dashboard endpoints",
+    version="1.0.0"
+)
+
+# Configure CORS for Next.js frontend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",  # Next.js dev server
+        "http://127.0.0.1:3000",
+        # Add your production frontend URL here when deployed
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Include API routers
+app.include_router(products_router)
+app.include_router(sales_router)
+app.include_router(analytics_router)
 
 # Telegram API Setup
 TELEGRAM_BOT_TOKEN = Config.TELEGRAM_BOT_TOKEN
