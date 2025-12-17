@@ -7,6 +7,11 @@ import { Product } from "@/lib/types";
 import { ProductForm } from "@/components/product-form";
 import { Skeleton } from "@/components/ui/skeleton";
 
+// Required for static export with dynamic routes
+export function generateStaticParams() {
+    return [];
+}
+
 export default function EditProductPage() {
     const params = useParams();
     const productId = params.id as string;
@@ -15,7 +20,9 @@ export default function EditProductPage() {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        loadProduct();
+        if (productId) {
+            loadProduct();
+        }
     }, [productId]);
 
     const loadProduct = async () => {
