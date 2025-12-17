@@ -1,10 +1,11 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Depends
 from pydantic import BaseModel
 from typing import List, Dict, Any
 from datetime import datetime, timedelta
 from firebase_admin import firestore
 from utils.db import db
 import logging
+from api.index import verify_api_key
 
 logger = logging.getLogger(__name__)
 
@@ -25,7 +26,7 @@ class DashboardStats(BaseModel):
 
 # --- API Endpoints ---
 
-@router.get("/dashboard", response_model=DashboardStats)
+@router.get("/dashboard", response_model=DashboardStats, dependencies=[Depends(verify_api_key)])
 async def get_dashboard_stats():
     """
     Get comprehensive dashboard statistics including:
