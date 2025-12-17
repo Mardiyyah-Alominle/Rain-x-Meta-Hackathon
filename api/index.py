@@ -38,7 +38,8 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",  # Next.js dev server
         "http://127.0.0.1:3000",
-        # Add your production frontend URL here when deployed
+        "https://*.vercel.app",  # All Vercel deployments (production + previews)
+        # Add your custom domain here when configured
     ],
     allow_credentials=True,
     allow_methods=["*"],

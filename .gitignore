@@ -12,3 +12,12 @@ env/
 # IDEs
 .vscode/
 .idea/
+
+# Next.js
+admin-dashboard/.next/
+admin-dashboard/out/
+admin-dashboard/node_modules/
+admin-dashboard/.env*.local
+
+# Vercel
+.vercel
