@@ -7,10 +7,8 @@ import { Product } from "@/lib/types";
 import { ProductForm } from "@/components/product-form";
 import { Skeleton } from "@/components/ui/skeleton";
 
-// Required for static export with dynamic routes
-export function generateStaticParams() {
-    return [];
-}
+// Force dynamic rendering for this page
+export const dynamic = 'force-dynamic';
 
 export default function EditProductPage() {
     const params = useParams();
@@ -20,9 +18,7 @@ export default function EditProductPage() {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        if (productId) {
-            loadProduct();
-        }
+        loadProduct();
     }, [productId]);
 
     const loadProduct = async () => {
