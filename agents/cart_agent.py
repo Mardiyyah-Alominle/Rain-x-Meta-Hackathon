@@ -76,7 +76,7 @@ def cart_manager_node(state: AgentState):
              return {
                  "cart": updated_cart,
                  "cart_total": new_total,
-                 "messages": [ToolMessage(tool_call_id=tool_call["id"], content=f"Successfully added {quantity} x {name} to cart. Current cart total: {new_total}")]
+                 "messages": [ToolMessage(tool_call_id=tool_call["id"], content=f"Successfully added {quantity} x {name} to cart. Current cart total: ₦{new_total:,.2f}")]
              }
 
     # If no relevant action detected, return nothing (state remains the same)

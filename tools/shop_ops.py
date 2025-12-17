@@ -47,7 +47,7 @@ def product_lookup_tool(product_name_query: str):
 
             return (f"Found Product Information:\n"
                     f"- Item Name: {name}\n"
-                    f"- Price: {price}\n"
+                    f"- Price: ₦{price:,}\n"
                     f"- Current Stock Level: {stock}")
         else:
             return f"Results: No product found matching the name '{product_name_query}'."
