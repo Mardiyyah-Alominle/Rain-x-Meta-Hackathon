@@ -4,6 +4,9 @@ from typing import List, Dict, Any
 from datetime import datetime, timedelta
 from firebase_admin import firestore
 from utils.db import db
+import logging
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/analytics", tags=["analytics"])
 
@@ -34,10 +37,13 @@ async def get_dashboard_stats():
     - Top selling products
     """
     if db is None:
+        logger.error("Database connection is None - Firebase not initialized")
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="Database connection not established"
+            detail="Database connection not established. Please check Firebase configuration and environment variables."
         )
+    
+    logger.info("Fetching dashboard analytics...")
     
     try:
         # 1. Get total sales and revenue
@@ -145,6 +151,7 @@ async def get_dashboard_stats():
         )
     
     except Exception as e:
+        logger.error(f"Error fetching dashboard stats: {str(e)}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Error fetching dashboard stats: {str(e)}"
