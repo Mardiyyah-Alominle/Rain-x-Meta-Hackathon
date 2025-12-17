@@ -1,8 +1,9 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Depends
 from pydantic import BaseModel, Field
 from typing import Optional, List
 from firebase_admin import firestore
 from utils.db import db
+from api.index import verify_api_key
 
 router = APIRouter(prefix="/api/sales", tags=["sales"])
 
@@ -37,7 +38,7 @@ class SaleResponse(BaseModel):
 
 # --- API Endpoints ---
 
-@router.post("/manual", response_model=SaleResponse, status_code=status.HTTP_201_CREATED)
+@router.post("/manual", response_model=SaleResponse, status_code=status.HTTP_201_CREATED, dependencies=[Depends(verify_api_key)])
 async def create_manual_sale(sale: ManualSaleCreate):
     """
     Create a manual sale entry and decrement inventory.
@@ -123,7 +124,7 @@ async def create_manual_sale(sale: ManualSaleCreate):
         )
 
 
-@router.get("/", response_model=List[SaleResponse])
+@router.get("/", response_model=List[SaleResponse], dependencies=[Depends(verify_api_key)])
 async def list_sales(
     source: Optional[str] = None,
     limit: int = 100
@@ -173,7 +174,7 @@ async def list_sales(
         )
 
 
-@router.get("/{sale_id}", response_model=SaleResponse)
+@router.get("/{sale_id}", response_model=SaleResponse, dependencies=[Depends(verify_api_key)])
 async def get_sale(sale_id: str):
     """
     Get a single sale by ID.

@@ -1,9 +1,10 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Depends
 from pydantic import BaseModel, Field
 from typing import Optional, List
 from datetime import datetime
 from firebase_admin import firestore
 from utils.db import db
+from api.index import verify_api_key
 
 router = APIRouter(prefix="/api/products", tags=["products"])
 
@@ -44,7 +45,7 @@ class ProductResponse(BaseModel):
 
 # --- API Endpoints ---
 
-@router.post("/", response_model=ProductResponse, status_code=status.HTTP_201_CREATED)
+@router.post("/", response_model=ProductResponse, status_code=status.HTTP_201_CREATED, dependencies=[Depends(verify_api_key)])
 async def create_product(product: ProductCreate):
     """
     Create a new product in the Firebase Firestore database.
@@ -86,7 +87,7 @@ async def create_product(product: ProductCreate):
         )
 
 
-@router.get("/", response_model=List[ProductResponse])
+@router.get("/", response_model=List[ProductResponse], dependencies=[Depends(verify_api_key)])
 async def list_products(
     category: Optional[str] = None,
     low_stock: Optional[int] = None
@@ -136,7 +137,7 @@ async def list_products(
         )
 
 
-@router.get("/{product_id}", response_model=ProductResponse)
+@router.get("/{product_id}", response_model=ProductResponse, dependencies=[Depends(verify_api_key)])
 async def get_product(product_id: str):
     """
     Get a single product by ID.
@@ -174,7 +175,7 @@ async def get_product(product_id: str):
         )
 
 
-@router.put("/{product_id}", response_model=ProductResponse)
+@router.put("/{product_id}", response_model=ProductResponse, dependencies=[Depends(verify_api_key)])
 async def update_product(product_id: str, product: ProductUpdate):
     """
     Update an existing product.
@@ -230,7 +231,7 @@ async def update_product(product_id: str, product: ProductUpdate):
         )
 
 
-@router.delete("/{product_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{product_id}", status_code=status.HTTP_204_NO_CONTENT, dependencies=[Depends(verify_api_key)])
 async def delete_product(product_id: str):
     """
     Delete a product by ID.

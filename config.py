@@ -19,3 +19,6 @@ class Config:
     # Model Name (You can add this back if you have a specific model in mind,
     # otherwise it's not strictly in the .env you provided, but is in the source examples)
     MODEL_NAME = "llama-3.3-70b-versatile"
+
+    # Admin API Key for dashboard authentication
+    ADMIN_API_KEY = os.getenv("ADMIN_API_KEY")
