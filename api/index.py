@@ -14,28 +14,13 @@ from workflows.shop_flow import app as shop_app
 # Import DB init to ensure mock data/firebase loads on startup
 from utils.db import db
 
+# Import API authentication
+from api.auth import verify_api_key
+
 # Import new API routers
 from api.products_api import router as products_router
 from api.sales_api import router as sales_router
 from api.analytics_api import router as analytics_router
-
-# API Key authentication
-from fastapi import HTTPException, status, Request
-
-def verify_api_key(request: Request):
-    """Verify API key for admin endpoints"""
-    api_key = request.headers.get("X-API-Key")
-    expected_key = Config.ADMIN_API_KEY
-
-    if not expected_key:
-        # If no API key is configured, skip authentication (for development)
-        return
-
-    if not api_key or api_key != expected_key:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid or missing API key"
-        )
 
 # Load environment variables
 load_dotenv()

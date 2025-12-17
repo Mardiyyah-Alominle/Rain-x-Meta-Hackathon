@@ -4,7 +4,7 @@ from typing import Optional, List
 from datetime import datetime
 from firebase_admin import firestore
 from utils.db import db
-from api.index import verify_api_key
+from api.auth import verify_api_key
 
 router = APIRouter(prefix="/api/products", tags=["products"])
 
