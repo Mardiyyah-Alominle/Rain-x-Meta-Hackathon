@@ -1,24 +1,23 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { productAPI } from "@/lib/api";
 import { Product } from "@/lib/types";
 import { ProductForm } from "@/components/product-form";
 import { Skeleton } from "@/components/ui/skeleton";
 
-// Force dynamic rendering for this page
-export const dynamic = 'force-dynamic';
-
-export default function EditProductPage() {
-    const params = useParams();
-    const productId = params.id as string;
+export default function EditProductClient() {
+    const searchParams = useSearchParams();
+    const productId = searchParams.get('id') as string;
     const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        loadProduct();
+        if (productId) {
+            loadProduct();
+        }
     }, [productId]);
 
     const loadProduct = async () => {
@@ -37,6 +36,16 @@ export default function EditProductPage() {
     const handleSubmit = async (data: any) => {
         await productAPI.update(productId, data);
     };
+
+    if (!productId) {
+        return (
+            <div className="p-8">
+                <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                    <p className="text-red-800">Error: Product ID is required</p>
+                </div>
+            </div>
+        );
+    }
 
     if (loading) {
         return (
