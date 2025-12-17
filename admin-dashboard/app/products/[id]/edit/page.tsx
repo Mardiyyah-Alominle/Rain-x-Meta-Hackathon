@@ -40,7 +40,7 @@ export default function EditProductPage() {
 
     if (loading) {
         return (
-            <div className="p-8 space-y-6">
+            <div className="p-8 space-y-6 h-auto">
                 <Skeleton className="h-8 w-48" />
                 <Skeleton className="h-96 w-full" />
             </div>
