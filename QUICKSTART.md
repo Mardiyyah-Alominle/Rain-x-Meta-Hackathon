@@ -1,6 +1,6 @@
 # 🚀 Quick Start Guide
 
-## Running the AestheticBot Admin Dashboard
+## Running the Imran Store Admin Dashboard
 
 ### Step 1: Start the Backend (FastAPI)
 

@@ -46,8 +46,8 @@ logger = logging.getLogger(__name__)
 
 # Setup FastAPI
 app = FastAPI(
-    title="AestheticBot API",
-    description="E-commerce chatbot API with admin dashboard endpoints",
+    title="Imran Store API",
+    description="Clothing and footwear e-commerce chatbot API with admin dashboard endpoints",
     version="1.0.0"
 )
 
@@ -171,4 +171,4 @@ async def telegram_webhook(request: Request):
 # --- Health Check Endpoint ---
 @app.get("/")
 async def health_check():
-    return {"status": "AestheticBot is running!", "db_status": "Mock DB Active" if db is None else "Firebase Connected"}
+    return {"status": "Imran Store API is running!", "db_status": "Mock DB Active" if db is None else "Firebase Connected"}

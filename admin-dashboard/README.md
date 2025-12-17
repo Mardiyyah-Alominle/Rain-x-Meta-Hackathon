@@ -1,6 +1,6 @@
-# AestheticBot Admin Dashboard
+# Imran Store Admin Dashboard
 
-A modern, full-stack admin dashboard for managing the AestheticBot e-commerce platform.
+A modern, full-stack admin dashboard for managing Imran Store - a clothing and footwear e-commerce platform.
 
 ## 🚀 Features
 

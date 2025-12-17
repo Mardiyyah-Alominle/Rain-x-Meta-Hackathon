@@ -4,8 +4,8 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 
 export const metadata: Metadata = {
-  title: "AestheticBot Admin",
-  description: "Admin dashboard for AestheticBot e-commerce platform",
+  title: "Imran Store Admin",
+  description: "Admin dashboard for Imran Store - Clothing and Footwear",
 };
 
 export default function RootLayout({
