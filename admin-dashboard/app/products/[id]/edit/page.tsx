@@ -7,10 +7,15 @@ import { Product } from "@/lib/types";
 import { ProductForm } from "@/components/product-form";
 import { Skeleton } from "@/components/ui/skeleton";
 
+<<<<<<< HEAD
 // Required for static export with dynamic routes
 export function generateStaticParams() {
     return [];
 }
+=======
+// Force dynamic rendering for this page
+export const dynamic = 'force-dynamic';
+>>>>>>> bb7eaf38a4e48572f4fcccf99b942c4fabde07a0
 
 export default function EditProductPage() {
     const params = useParams();
@@ -44,7 +49,7 @@ export default function EditProductPage() {
 
     if (loading) {
         return (
-            <div className="p-8 space-y-6">
+            <div className="p-8 space-y-6 h-auto">
                 <Skeleton className="h-8 w-48" />
                 <Skeleton className="h-96 w-full" />
             </div>
