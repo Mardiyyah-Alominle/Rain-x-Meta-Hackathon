@@ -7,6 +7,9 @@ import { Product } from "@/lib/types";
 import { ProductForm } from "@/components/product-form";
 import { Skeleton } from "@/components/ui/skeleton";
 
+// Force dynamic rendering for this page
+export const dynamic = 'force-dynamic';
+
 export default function EditProductPage() {
     const params = useParams();
     const productId = params.id as string;
