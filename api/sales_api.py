@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field
 from typing import Optional, List
 from firebase_admin import firestore
 from utils.db import db
-from api.index import verify_api_key
+from api.auth import verify_api_key
 
 router = APIRouter(prefix="/api/sales", tags=["sales"])
 

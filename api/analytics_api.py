@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from firebase_admin import firestore
 from utils.db import db
 import logging
-from api.index import verify_api_key
+from api.auth import verify_api_key
 
 logger = logging.getLogger(__name__)
 
