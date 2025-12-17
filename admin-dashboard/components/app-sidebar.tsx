@@ -58,7 +58,7 @@ export function AppSidebar() {
                 <div className="flex items-center gap-2">
                     <Bot className="h-6 w-6" />
                     <div>
-                        <h2 className="text-lg font-semibold">AestheticBot</h2>
+                        <h2 className="text-lg font-semibold">Imran Store</h2>
                         <p className="text-xs text-muted-foreground">Admin Dashboard</p>
                     </div>
                 </div>
