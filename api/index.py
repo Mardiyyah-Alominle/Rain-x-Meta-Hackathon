@@ -1,4 +1,5 @@
 import logging
+import re
 from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 import httpx
@@ -38,9 +39,10 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",  # Next.js dev server
         "http://127.0.0.1:3000",
-        "https://*.vercel.app",  # All Vercel deployments (production + previews)
+        "https://rain-x-meta-hackathon-apgg-k2o7d1gcp.vercel.app",  # Production deployment
         # Add your custom domain here when configured
     ],
+    allow_origin_regex=r"https://.*\.vercel\.app",  # All Vercel preview deployments
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -50,6 +52,20 @@ app.add_middleware(
 app.include_router(products_router)
 app.include_router(sales_router)
 app.include_router(analytics_router)
+
+# Startup event to log Firebase connection status
+@app.on_event("startup")
+async def startup_event():
+    """Log Firebase connection status on startup"""
+    if db is None:
+        logger.error("❌ Firebase connection FAILED - Database is None")
+        logger.error("Check your Firebase environment variables:")
+        logger.error("  - FIREBASE_PROJECT_ID")
+        logger.error("  - FIREBASE_CLIENT_EMAIL")
+        logger.error("  - FIREBASE_PRIVATE_KEY")
+    else:
+        logger.info("✅ Firebase connection successful")
+        logger.info(f"Database client initialized: {type(db).__name__}")
 
 # Telegram API Setup
 TELEGRAM_BOT_TOKEN = Config.TELEGRAM_BOT_TOKEN
